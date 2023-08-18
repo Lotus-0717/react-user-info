@@ -1,7 +1,7 @@
-export default function About() {
+export default function User() {
   return(
     <section className="page">
-      <h2>About</h2>
+      <h2>User</h2>
       <hr></hr>
     </section>
   )

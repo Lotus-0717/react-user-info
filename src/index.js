@@ -4,9 +4,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Nav from './components/nav';
 import Home from './pages/Home';
-import About from './pages/About';
+import User from './pages/User';
 
-import './scss/main.scss';
+import './index.css';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,7 +16,7 @@ root.render(
       <Nav></Nav>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/user" element={<User />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
