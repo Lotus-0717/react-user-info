@@ -1,21 +1,26 @@
 import { useState, useEffect } from "react";
 import List from "./components/list";
 
-async function fetchData(setData) {
-  const res = await fetch(`http://localhost:3000/newsData??_start=0&_end=5`);
-  const data = await res.json();
-  setData(data)
-}
-
 export default function Home() {
+  const [dataLimit, setDataLimit] = useState(0);
   const [data, setData] = useState([]);
+  const [initialLoad, setInitialLoad] = useState(false); // Track initial load
   useEffect(() => {
-    fetchData(setData);
-  }, []);
+    if (initialLoad) {
+      fetchData(dataLimit, setData);
+    } else {
+      setInitialLoad(true); // Enable initial load for subsequent requests
+    }
+  }, [dataLimit, initialLoad]);
   
+  async function fetchData(limit, setFetchedData) {
+    const res = await fetch(`http://localhost:3000/newsData?_start=${limit}&_end=${limit + 5}`);
+    const newData = await res.json();
+    setFetchedData(prevData => [...prevData, ...newData]); // Append new data to the existing data
+  }
 
   function loadMore() {
-
+    setDataLimit(prevLimit => prevLimit + 5); // Increase the data limit to load the next batch
   }
 
   return (
@@ -31,4 +36,3 @@ export default function Home() {
     </section>
   );
 }
-
